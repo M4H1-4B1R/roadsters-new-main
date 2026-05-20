@@ -1,0 +1,181 @@
+{
+  "Navbar": {
+    "Home": "Home",
+    "Categories": "Categories",
+    "Products": "Products",
+    "Contact": "Contact"
+  },
+  "Button": {
+    "DiscoverNow": "Discover Now",
+    "ViewAll": "View All",
+    "Submit": "Submit",
+    "Filter": "Filter",
+    "AddtoCart": "Add to Cart",
+    "ShopNow": "Shop Now",
+    "CompleteOrder": "Complete order",
+    "Apply": "Apply",
+    "RemoveFromCart": "Remove from Cart",
+    "Previous": "Previous",
+    "Next": "Next",
+    "GoBackHome": "Go Back Home"
+  },
+  "FavoritesPage": {
+    "title": "Favorites",
+    "subtitle": "From bestsellers to hidden gems, your favorites are chosen to keep you stylish, confident, and always inspired."
+  },
+  "ProductsPage": {
+    "title": "Products",
+    "subtitle": "From timeless essentials to trend-forward finds, every item is crafted with care to bring you the best in style and function."
+  },
+  "CategoriesPage": {
+    "title": "Categories",
+    "subtitle": "Explore all product categories and find what suits your style"
+  },
+  "ProductDetailsPage": {
+    "title": "Categories",
+    "subtitle": "Explore all product categories and find what suits your style"
+  },
+  "CheckoutPage": {
+    "title": "Checkout",
+    "subtitle": "Almost done! Please verify your order details and complete the checkout securely.",
+    "OrderSummary": "Order Summary",
+    "Subtotal": "Subtotal",
+    "Delivery": "Delivery",
+    "Promotions": "Promotions",
+    "Total": "Total",
+    "Free": "Free",
+    "OnCheckout": "on checkout",
+    "proceedToCheckout": "Proceed to checkout",
+    "SimilarStyles": "Similar Styles You'll Love",
+    "orderSuccess": "Order Success",
+    "orderSuccessMessage": "Your order has been placed successfully."
+  },
+  "Personalinformation": {
+    "Personalinformation": "Personal information",
+    "fullName": "Full Name",
+    "requiredfullName": "Full name is required",
+    "minLengthfullName": "Name must be at least 3 characters",
+    "email": "E-mail",
+    "requiredEmail": "E-mail is required",
+    "validEmail": "Enter a valid email",
+    "phoneNumber": "Phone number",
+    "requiredPhoneNumber": "Phone number is required",
+    "validPhoneNumber": "Only numbers are allowed"
+  },
+  "ShippingAddress": {
+    "ShippingAddress": "Shipping Address",
+    "street": "Street",
+    "requiredStreet": "Street is required",
+    "buildingNumber": "Building number",
+    "requiredBuildingNumber": "Building number is required",
+    "additionalAddress": "Additional address information",
+    "postalCode": "Postal code",
+    "requiredPostalCode": "Postal code is required",
+    "city": "City",
+    "requiredCity": "City is required",
+    "country": "Country",
+    "requiredCountry": "Country is required"
+  },
+  "CouponCode": {
+    "CouponCode": "Coupon Code",
+    "EnterCoupon": "Enter coupon code"
+  },
+  "OrderSummary": {
+    "OrderSummary": "Order Summary"
+  },
+  "PaymentMethod": {
+    "PaymentMethod": "Payment Method"
+  },
+  "ApplicationState": {
+    "loading": {
+      "title": "Loading...",
+      "message": "Please wait while we fetch the data.",
+      "button": "Refresh"
+    },
+    "emptyCart": {
+      "title": "Your Cart is Empty",
+      "message": "Looks like you haven't added anything to your cart yet.",
+      "button": "Start Shopping"
+    },
+    "emptyFavorites": {
+      "title": "No Favorites Yet",
+      "message": "Add items to your favorites to see them here.",
+      "button": "Browse Products"
+    },
+    "error": {
+      "title": "Something Went Wrong",
+      "message": "An unexpected error occurred. Please try again later.",
+      "button": "Retry"
+    },
+    "noResults": {
+      "title": "No Results Found",
+      "message": "We couldn't find any items matching your search.",
+      "button": "Try Again"
+    },
+    "defaultButton": "Go Back"
+  },
+  "ProductDetails": {
+    "Select": "Select",
+    "SelectFirst": "Please select",
+    "SelectSize": "Select Size",
+    "DescriptionFit": "Description & Fit",
+    "Shipping": "Shipping",
+    "Discount": "Discount",
+    "DeliveryTime": "Delivery Time",
+    "Package": "Package",
+    "EstArrival": "Est. Arrival",
+    "YouMayAlsoLike": "You May Also Like",
+    "NoVariationsAvailable": "No variations available currently",
+    "OutOfStock": "Out of Stock"
+  },
+  "Footer": {
+    "OppaUpdates": "Be the first to hear about Oppa’s updates",
+    "NAVBAR": "NAVBAR",
+    "CONNECT": "CONNECT",
+    "TermsOfService": "Terms of Service",
+    "TermsAndConditions": "Terms and Conditions",
+    "AcceptableUsePolicy": "Acceptable Use Policy",
+    "RightsReserved": "Oppa © 2024. All rights reserved.",
+    "PrivacyPolicy": "Privacy Policy",
+    "PoweredBy": "Powered by Clicks Digitals",
+    "Home": "Home",
+    "Categories": "Categories",
+    "Products": "Products",
+    "Favorites": "Favorites",
+    "Bag": "Bag",
+    "TikTok": "TikTok",
+    "Instagram": "Instagram",
+    "X": "X",
+    "YouTube": "YouTube",
+    "LinkedIn": "LinkedIn",
+    "PhoneNumber": "Phone Number"
+  },
+  "CartPage": {
+    "Cart": "Cart",
+    "ShoppingBag": "Shopping Bag",
+    "Size": "Size",
+    "Change": "Change",
+    "Qty": "Qty",
+    "MoveTowishlist": "Move to wishlist",
+    "RemoveFromWishlist": "Remove from wishlist",
+    "ImportDuties": "You may have to pay import duties",
+    "Summary": "Summary",
+    "Subtotal": "Subtotal",
+    "Delivery": "Delivery",
+    "Promotions": "Promotions",
+    "Total": "Total",
+    "Free": "Free",
+    "OnCheckout": "on checkout",
+    "proceedToCheckout": "Proceed to checkout",
+    "SimilarStyles": "Similar Styles You'll Love",
+    "NoVariationsSelected": "Standard item",
+    "Color": "Color",
+    "Quantity": "Quantity"
+  },
+  "toaster": {
+    "addedToCart": "Added {item} to cart",
+    "removedFromCart": "Removed {item} from cart",
+    "addedToFavorites": "Added {item} to favorites",
+    "removedFromFavorites": "Removed {item} from favorites"
+  }
+}

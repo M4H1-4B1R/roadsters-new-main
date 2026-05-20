@@ -1,0 +1,171 @@
+{
+  "Navbar": {
+    "Home": "الرئيسية",
+    "Categories": "الفئات",
+    "Products": "المنتجات",
+    "Contact": "اتصل بنا"
+  },
+  "Button": {
+    "DiscoverNow": "اكتشف الآن",
+    "ViewAll": "عرض الجميع",
+    "Submit": "إرسال",
+    "Filter": "تصفية",
+    "AddtoCart": "أضف إلى السلة",
+    "ShopNow": "تسوق الآن",
+    "CompleteOrder": "إتمام الطلب",
+    "Apply": "تطبيق",
+    "RemoveFromCart": "إزالة من السلة",
+    "Previous": "السابق",
+    "Next": "التالي",
+    "GoBackHome": "العودة للرئيسية"
+  },
+  "FavoritesPage": {
+    "title": "المفضلة",
+    "subtitle": "من الأكثر مبيعًا إلى الكنوز المخفية، تم اختيار مفضلاتك لتمنحك أناقة وثقة وإلهامًا دائمًا."
+  },
+  "ProductsPage": {
+    "title": "المنتجات",
+    "subtitle": "من الأساسيات الكلاسيكية إلى القطع المواكبة للموضة، كل منتج مصنوع بعناية ليمنحك أفضل مزيج من الأناقة والعملية."
+  },
+  "CategoriesPage": {
+    "title": "الفئات",
+    "subtitle": "استكشف جميع فئات المنتجات وابحث عمّا يناسب ذوقك."
+  },
+  "ProductDetailsPage": {
+    "title": "الفئات",
+    "subtitle": "استكشف جميع فئات المنتجات واعثر على ما يناسب أسلوبك"
+  },
+  "CheckoutPage": {
+    "title": "الدفع",
+    "subtitle": "لقد اقتربت من الانتهاء! يرجى التحقق من تفاصيل طلبك وإتمام الدفع بأمان.",
+    "orderSuccess": "Order Success",
+    "orderSuccessMessage": "Your order has been placed successfully."
+  },
+  "Personalinformation": {
+    "Personalinformation": "المعلومات الشخصية",
+    "fullName": "الاسم الكامل",
+    "requiredfullName": "الاسم الكامل مطلوب",
+    "minLengthfullName": "يجب أن يكون الاسم على الأقل 3 أحرف",
+    "email": "البريد الإلكتروني",
+    "requiredEmail": "البريد الإلكتروني مطلوب",
+    "validEmail": "أدخل بريد إلكتروني صالح",
+    "phoneNumber": "رقم الهاتف",
+    "requiredPhoneNumber": "رقم الهاتف مطلوب",
+    "validPhoneNumber": "يُسمح بالأرقام فقط"
+  },
+  "ShippingAddress": {
+    "ShippingAddress": "عنوان الشحن",
+    "street": "الشارع",
+    "requiredStreet": "الشارع مطلوب",
+    "buildingNumber": "رقم المبنى",
+    "requiredBuildingNumber": "رقم المبنى مطلوب",
+    "additionalAddress": "معلومات إضافية عن العنوان",
+    "postalCode": "الرمز البريدي",
+    "requiredPostalCode": "الرمز البريدي مطلوب",
+    "city": "المدينة",
+    "requiredCity": "المدينة مطلوبة",
+    "country": "الدولة",
+    "requiredCountry": "الدولة مطلوبة"
+  },
+  "CouponCode": {
+    "CouponCode": "رمز القسيمة",
+    "EnterCoupon": "أدخل رمز القسيمة"
+  },
+  "OrderSummary": {
+    "OrderSummary": "ملخص الطلب"
+  },
+  "PaymentMethod": {
+    "PaymentMethod": "طريقة الدفع"
+  },
+  "ApplicationState": {
+    "loading": {
+      "title": "جار التحميل...",
+      "message": "يرجى الانتظار أثناء جلب البيانات.",
+      "button": "تحديث"
+    },
+    "emptyCart": {
+      "title": "سلتك فارغة",
+      "message": "يبدو أنك لم تضف أي عناصر إلى سلتك بعد.",
+      "button": "ابدأ التسوق"
+    },
+    "emptyFavorites": {
+      "title": "لا توجد مفضلات بعد",
+      "message": "أضف عناصر إلى المفضلة لرؤيتها هنا.",
+      "button": "تصفح المنتجات"
+    },
+    "error": {
+      "title": "حدث خطأ ما",
+      "message": "حدث خطأ غير متوقع. يرجى المحاولة لاحقًا.",
+      "button": "أعد المحاولة"
+    },
+    "noResults": {
+      "title": "لم يتم العثور على نتائج",
+      "message": "لم نتمكن من العثور على أي عناصر تطابق بحثك.",
+      "button": "حاول مرة أخرى"
+    },
+    "defaultButton": "عودة"
+  },
+  "ProductDetails": {
+    "Select": "اختر",
+    "SelectFirst": "يرجى اختيار",
+    "SelectSize": "اختر المقاس",
+    "DescriptionFit": "الوصف والمقاس",
+    "Shipping": "الشحن",
+    "Discount": "الخصم",
+    "DeliveryTime": "مدة التوصيل",
+    "Package": "محتويات العبوة",
+    "EstArrival": "موعد الوصول المتوقع",
+    "YouMayAlsoLike": "قد يعجبك أيضاً",
+    "NoVariationsAvailable": "لا توجد خيارات متاحة حالياً",
+    "OutOfStock": "نفذ من المخزون"
+  },
+  "Footer": {
+    "OppaUpdates": "كن أول من يسمع عن تحديثات أوبا",
+    "NAVBAR": "شريط التنقل",
+    "CONNECT": "تواصل",
+    "TermsOfService": "شروط الخدمة",
+    "TermsAndConditions": "الشروط والأحكام",
+    "RightsReserved": "أوبا © 2024. جميع الحقوق محفوظة.",
+    "PrivacyPolicy": "سياسة الخصوصية",
+    "PoweredBy": "بواسطة Clicks Digitals",
+    "Home": "الرئيسية",
+    "Categories": "الفئات",
+    "Products": "المنتجات",
+    "Favorites": "المفضلة",
+    "Bag": "الحقيبة",
+    "TikTok": "تيك توك",
+    "Instagram": "إنستغرام",
+    "X": "إكس",
+    "YouTube": "يوتيوب",
+    "LinkedIn": "لينكدإن",
+    "PhoneNumber": "رقم الهاتف"
+  },
+  "CartPage": {
+    "Cart": "عربة التسوق",
+    "ShoppingBag": "حقيبة التسوق",
+    "Size": "المقاس",
+    "Change": "تغيير",
+    "Qty": "الكمية",
+    "MoveTowishlist": "نقل إلى المفضلة",
+    "RemoveFromWishlist": "إزالة من قائمة الرغبات",
+    "ImportDuties": "قد تحتاج إلى دفع رسوم جمركية",
+    "Summary": "الملخص",
+    "Subtotal": "المجموع الفرعي",
+    "Delivery": "التوصيل",
+    "Promotions": "العروض",
+    "Total": "الإجمالي",
+    "Free": "مجاني",
+    "OnCheckout": "عند إنهاء الشراء",
+    "proceedToCheckout": "متابعة لإتمام الشراء",
+    "SimilarStyles": "أناقة مشابهة ستحبها",
+    "NoVariationsSelected": "منتج قياسي",
+    "Color": "اللون",
+    "Quantity": "الكمية"
+  },
+  "toaster": {
+    "addedToCart": "تمت إضافة {item} إلى السلة",
+    "removedFromCart": "تمت إزالة {item} من السلة",
+    "addedToFavorites": "تمت إضافة {item} إلى المفضلة",
+    "removedFromFavorites": "تمت إزالة {item} من المفضلة"
+  }
+}
