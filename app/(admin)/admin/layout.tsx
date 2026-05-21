@@ -17,8 +17,8 @@ import logoutAction from "./logout-action";
 const navItems = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { label: "Orders", href: "/admin/orders", icon: ShoppingCart, disabled: true },
-  { label: "Products", href: "/admin/products", icon: Package, disabled: true },
-  { label: "Categories", href: "/admin/categories", icon: FolderTree, disabled: true },
+  { label: "Products", href: "/admin/products", icon: Package },
+  { label: "Categories", href: "/admin/categories", icon: FolderTree },
 ];
 
 const soonItems = [

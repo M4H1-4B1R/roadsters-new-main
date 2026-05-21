@@ -8,6 +8,7 @@ create table categories (
   description_ar text,
   image_url text,
   parent_id bigint references categories(id),
+  featured boolean default false,
   sort_order int default 0,
   is_active boolean default true,
   created_at timestamptz default now()
