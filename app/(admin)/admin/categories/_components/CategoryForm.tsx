@@ -52,13 +52,20 @@ export default function CategoryForm({
     if (!file) return;
     setUploading(true);
     setUploadError(null);
-    const result = await uploadImage(file, "categories");
-    if ("url" in result) {
-      setImageUrl(result.url);
-    } else {
-      setUploadError(result.error);
+    try {
+      const result = await uploadImage(file, "categories");
+      if ("url" in result) {
+        setImageUrl(result.url);
+      } else {
+        setUploadError(result.error);
+      }
+    } catch (err) {
+      setUploadError(
+        err instanceof Error ? err.message : "Upload failed. Try a smaller image."
+      );
+    } finally {
+      setUploading(false);
     }
-    setUploading(false);
   };
 
   return (

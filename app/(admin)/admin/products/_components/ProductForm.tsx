@@ -55,20 +55,27 @@ export default function ProductForm({
     if (!file) return;
     setUploading(true);
     setUploadError(null);
-    const result = await uploadImage(file, "products");
-    if ("url" in result) {
-      setImages((prev) => [
-        ...prev,
-        {
-          image_url: result.url,
-          is_primary: prev.length === 0,
-          sort_order: prev.length,
-        },
-      ]);
-    } else {
-      setUploadError(result.error);
+    try {
+      const result = await uploadImage(file, "products");
+      if ("url" in result) {
+        setImages((prev) => [
+          ...prev,
+          {
+            image_url: result.url,
+            is_primary: prev.length === 0,
+            sort_order: prev.length,
+          },
+        ]);
+      } else {
+        setUploadError(result.error);
+      }
+    } catch (err) {
+      setUploadError(
+        err instanceof Error ? err.message : "Upload failed. Try a smaller image."
+      );
+    } finally {
+      setUploading(false);
     }
-    setUploading(false);
   };
 
   const removeImage = (index: number) => {
