@@ -1,6 +1,7 @@
 import ProductDetailsLayout from "@/components/ProductDetails/ProductDetailsLayout";
 import { getCategoryByID, getProductByID } from "@/lib/utils/api-client";
-import { Category, Product } from "@/types";
+import { Category } from "@/types";
+import { notFound } from "next/navigation";
 
 export default async function page({
   params,
@@ -12,13 +13,17 @@ export default async function page({
   const { slug } = await params;
   const { category: categorySlug } = await searchParams;
 
-  const product: Product = await getProductByID({ slug });
+  const product = await getProductByID({ slug });
+
+  if (!product) {
+    notFound();
+  }
 
   let category: Category | undefined;
 
   if (categorySlug) {
     try {
-      category = await getCategoryByID({ slug: categorySlug });
+      category = (await getCategoryByID({ slug: categorySlug })) ?? undefined;
     } catch (error) {
       console.error("Error fetching category by slug:", error);
     }
