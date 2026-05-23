@@ -512,7 +512,6 @@ export async function getShippingOptions() {
   const { data, error } = await db
     .from("shipping_options")
     .select("*")
-    .eq("is_active", true)
     .order("price", { ascending: true });
   if (error) {
     console.error("Error fetching shipping options:", error);
