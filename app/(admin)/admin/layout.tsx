@@ -22,11 +22,11 @@ const navItems = [
 	{ label: "Shipping Options", href: "/admin/shipping", icon: Truck },
 	{ label: "Banners", href: "/admin/banners", icon: Image },
 	{ label: "Gallery Swipers", href: "/admin/swipers", icon: Images },
+	{ label: "Coupons", href: "/admin/coupons", icon: Percent },
 ];
 
 const soonItems = [
 	{ label: "Website Sections", icon: Layout },
-	{ label: "Coupons", icon: Percent },
 	{ label: "NewsLetters", icon: Mail },
 ];
 
