@@ -57,8 +57,14 @@ export default function HomeLayout({
             }}
             className="w-full max-w-7xl mx-auto px-4 swiper-linear"
           >
-            {/* Duplicate slides for seamless infinite loop */}
-            {[...swipers, ...swipers].map((swiper, index) => (
+            {/* Repeat slides enough times that Swiper loop stays enabled even
+               with few logos (loop disables itself below ~2x slidesPerView=7). */}
+            {Array.from(
+              { length: Math.ceil(16 / swipers.length) },
+              () => swipers,
+            )
+              .flat()
+              .map((swiper, index) => (
               <SwiperSlide
                 key={`${swiper.id}-${index}`}
                 className="flex items-center justify-center"
