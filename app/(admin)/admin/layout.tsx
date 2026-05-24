@@ -24,12 +24,13 @@ const navItems = [
 	{ label: "Gallery Swipers", href: "/admin/swipers", icon: Images },
 	{ label: "Coupons", href: "/admin/coupons", icon: Percent },
 	{ label: "Newsletters", href: "/admin/newsletters", icon: Mail },
+	{ label: "Website Sections", href: "/admin/sections", icon: Layout },
 ];
 
-const soonItems = [
-	{ label: "Website Sections", icon: Layout },
-];
-
+// const soonItems = [
+// 	{ label: "Website Sections", icon: Layout },
+// ];
+//
 function Sidebar() {
 	return (
 		<aside className="fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-200 flex flex-col z-50">
@@ -52,19 +53,6 @@ function Sidebar() {
 						<item.icon size={18} />
 						{item.label}
 					</Link>
-				))}
-
-				<p className="text-[11px] font-semibold text-gray-400 uppercase tracking-wider px-3 pt-4 pb-1">
-					Coming Soon
-				</p>
-				{soonItems.map((item) => (
-					<span
-						key={item.label}
-						className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-400 cursor-not-allowed opacity-60"
-					>
-						<item.icon size={18} />
-						{item.label}
-					</span>
 				))}
 			</nav>
 
