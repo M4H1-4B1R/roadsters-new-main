@@ -19,11 +19,7 @@ export default function HeroSection({ banners }: HeroSectionProps) {
       <Carousel dir="ltr" className="relative" opts={{ loop: true }}>
         <CarouselContent>
           {banners?.map((banner) => {
-            if (
-              banner.is_active &&
-              banner.title !== null &&
-              banner.subtitle !== null
-            )
+            if (banner.is_active)
               return (
                 <CarouselItem key={banner.id}>
                   <HeroCarouselItem BannerItem={banner} />

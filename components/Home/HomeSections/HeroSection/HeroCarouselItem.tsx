@@ -28,12 +28,14 @@ export default function HeroCarouselItem({
       }}
     >
       <div className="max-w-[50%] sm:max-w-[45%] md:max-w-[40%]">
-        {/* Title */}
-        <h1 className="text-2xl sm:text-3xl md:text-4xl text-center lg:text-5xl font-semibold leading-tight mb-4">
-          {locale === "ar"
-            ? BannerItem.title_ar ?? BannerItem.title
-            : BannerItem.title}
-        </h1>
+        {/* Title (if exists) */}
+        {BannerItem.title && (
+          <h1 className="text-2xl sm:text-3xl md:text-4xl text-center lg:text-5xl font-semibold leading-tight mb-4">
+            {locale === "ar"
+              ? BannerItem.title_ar ?? BannerItem.title
+              : BannerItem.title}
+          </h1>
+        )}
 
         {/* Subtitle (if exists) */}
         {BannerItem.subtitle && (

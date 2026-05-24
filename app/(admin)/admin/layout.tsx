@@ -20,11 +20,11 @@ const navItems = [
 	{ label: "Products", href: "/admin/products", icon: Package },
 	{ label: "Categories", href: "/admin/categories", icon: FolderTree },
 	{ label: "Shipping Options", href: "/admin/shipping", icon: Truck },
+	{ label: "Banners", href: "/admin/banners", icon: Image },
 ];
 
 const soonItems = [
 	{ label: "Website Sections", icon: Layout },
-	{ label: "Banners", icon: Image },
 	{ label: "Gallery Swiper", icon: Images },
 	{ label: "Coupons", icon: Percent },
 	{ label: "NewsLetters", icon: Mail },
