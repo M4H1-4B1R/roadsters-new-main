@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { FaTwitter, FaInstagram, FaLinkedinIn, FaYoutube, FaArrowRight } from "react-icons/fa";
+import { subscribeNewsletter } from "@/lib/actions/newsletter";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -29,23 +30,13 @@ export default function Footer() {
     setMessage("");
 
     try {
-      const response = await fetch("/api/newsletter", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          full_name: "Newsletter Subscriber",
-          email: email,
-        }),
-      });
+      const result = await subscribeNewsletter(email);
 
-      if (response.ok) {
+      if (result.ok) {
         setMessage("Subscribed successfully!");
         setEmail("");
       } else {
-        const data = await response.json();
-        setMessage(data.error || "Failed to subscribe");
+        setMessage(result.message || "Failed to subscribe");
       }
     } catch (error) {
       console.error("Newsletter error:", error);

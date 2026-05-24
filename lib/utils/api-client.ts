@@ -512,7 +512,6 @@ export async function getShippingOptions() {
   const { data, error } = await db
     .from("shipping_options")
     .select("*")
-    .eq("is_active", true)
     .order("price", { ascending: true });
   if (error) {
     console.error("Error fetching shipping options:", error);
@@ -525,39 +524,126 @@ export async function getShippingOptions() {
 // Write API — migrated to Supabase in Phase 5. Left calling the proxy for now.
 // ---------------------------------------------------------------------------
 
-// Validate coupon - calls Next.js API route which proxies to backend
+// Validate coupon - queries Supabase directly
 export async function validateCoupon(code: string, totalAmount: number) {
-  try {
-    const response = await apiClient.post("/api/validate-coupon", {
-      coupon_code: code,
-      total_amount: totalAmount,
-    });
-    return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      throw {
-        status: error.response?.status || 500,
-        details: error.response?.data || { error: "Unknown error" },
-      };
-    }
-    throw error;
+  const { data: coupon } = await db
+    .from("coupons")
+    .select("*")
+    .eq("code", code)
+    .eq("is_active", true)
+    .maybeSingle();
+
+  if (!coupon) return { valid: false, message: "Invalid code" };
+  if (coupon.expires_at && new Date(coupon.expires_at) < new Date()) {
+    return { valid: false, message: "Coupon expired" };
   }
+  if (totalAmount < Number(coupon.min_order_amount ?? 0)) {
+    return { valid: false, message: `Minimum order ${coupon.min_order_amount}` };
+  }
+  if (coupon.usage_limit && coupon.used_count >= coupon.usage_limit) {
+    return { valid: false, message: "Coupon fully used" };
+  }
+
+  const value = Number(coupon.discount_value);
+  const discount =
+    coupon.discount_type === "percentage"
+      ? Math.round(((totalAmount * value) / 100) * 100) / 100
+      : value;
+
+  return {
+    valid: true,
+    discount_amount: discount,
+    discounted_total: Math.max(0, totalAmount - discount),
+    discount_type: coupon.discount_type,
+    discount_value: value,
+    code: coupon.code,
+    used_count: coupon.used_count,
+    usage_limit: coupon.usage_limit,
+  };
 }
 
-// Create order - calls Next.js API route which proxies to backend
-export async function createOrder(orderData: any) {
-  try {
-    const response = await apiClient.post("/api/orders/create", orderData);
-    return response.data;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      throw {
-        status: error.response?.status || 500,
-        details: error.response?.data || { error: "Unknown error" },
-      };
-    }
-    throw error;
+type PlaceOrderInput = {
+  customer_name: string;
+  customer_phone: string;
+  customer_email?: string;
+  shipping_address: string;
+  shipping_option_id: number;
+  payment_method?: string;
+  coupon_code?: string;
+  notes?: string;
+  items: Array<{
+    product_id: number;
+    product_name: string;
+    variation_label?: string;
+    unit_price: number;
+    quantity: number;
+  }>;
+};
+
+export async function placeOrder(input: PlaceOrderInput) {
+  const subtotal = input.items.reduce(
+    (sum, i) => sum + i.unit_price * i.quantity,
+    0
+  );
+
+  let discount = 0;
+  if (input.coupon_code) {
+    const result = await validateCoupon(input.coupon_code, subtotal);
+    if (result.valid) discount = result.discount_amount ?? 0;
   }
+
+  const { data: shipping } = await db
+    .from("shipping_options")
+    .select("price")
+    .eq("id", input.shipping_option_id)
+    .single();
+  const shippingFee = Number(shipping?.price ?? 0);
+  const total = Math.max(0, subtotal - discount + shippingFee);
+
+  const { data: order, error: orderError } = await db
+    .from("orders")
+    .insert({
+      customer_name: input.customer_name,
+      customer_phone: input.customer_phone,
+      customer_email: input.customer_email ?? null,
+      shipping_address: input.shipping_address,
+      shipping_option_id: input.shipping_option_id,
+      shipping_fee: shippingFee,
+      payment_method: input.payment_method ?? "cod",
+      coupon_code: input.coupon_code ?? null,
+      discount,
+      subtotal,
+      total,
+      notes: input.notes ?? null,
+    })
+    .select()
+    .single();
+  if (orderError || !order) {
+    console.error("placeOrder insert error:", orderError);
+    return { ok: false, message: "Failed to create order" };
+  }
+
+  const { error: itemsError } = await db.from("order_items").insert(
+    input.items.map((i) => ({
+      order_id: order.id,
+      product_id: i.product_id,
+      product_name: i.product_name,
+      variation_label: i.variation_label ?? null,
+      unit_price: i.unit_price,
+      quantity: i.quantity,
+      subtotal: i.unit_price * i.quantity,
+    }))
+  );
+  if (itemsError) {
+    console.error("placeOrder items error:", itemsError);
+    return { ok: false, message: "Order created but items failed" };
+  }
+
+  if (input.coupon_code && discount > 0) {
+    await db.rpc("increment_coupon_usage", { p_code: input.coupon_code });
+  }
+
+  return { ok: true, order };
 }
 
 export default apiClient;

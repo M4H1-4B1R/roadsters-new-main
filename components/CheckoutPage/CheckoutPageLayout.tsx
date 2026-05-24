@@ -24,7 +24,7 @@ import { MdOutlineLocalShipping } from "react-icons/md";
 import {
   getShippingOptions,
   validateCoupon,
-  createOrder,
+  placeOrder,
 } from "@/lib/utils/api-client";
 
 type CheckoutFields = {
@@ -116,22 +116,16 @@ export default function CheckoutPageLayout() {
     setCouponError("");
     setCouponSuccess("");
 
-    try {
-      const result = await validateCoupon(code, getTotal());
+    const result = await validateCoupon(code, getTotal());
+    if (result.valid) {
       setAppliedCoupon(result);
       setCouponSuccess(
         `Coupon applied! Discount: ${result.discount_value}${result.discount_type === "percentage" ? "%" : " JOD"
         }`
       );
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (error: any) {
-      console.error("Coupon error:", error);
+    } else {
       setAppliedCoupon(null);
-      setCouponError(
-        error.details?.coupon_code?.[0] ||
-        error.details?.coupon_code ||
-        "Invalid coupon"
-      );
+      setCouponError(result.message || "Invalid coupon");
     }
   };
 
@@ -187,63 +181,39 @@ export default function CheckoutPageLayout() {
 
     setIsSubmitting(true);
     try {
-      const orderPayload = {
-        full_name: data.fullName,
-        email: data.email,
-        phone: data.phoneNumber,
-        address: `${data.street}, ${data.buildingNumber}${data.additionalAddress ? `, ${data.additionalAddress}` : ""
-          }`,
-        city: data.city,
-        country: data.country, // Send country value as text (backend handles both ID and name)
+      const shippingAddress = `${data.street}, ${data.buildingNumber}${data.additionalAddress ? `, ${data.additionalAddress}` : ""
+        }, ${data.city}, ${data.country}`;
+
+      const result = await placeOrder({
+        customer_name: data.fullName,
+        customer_phone: data.phoneNumber,
+        customer_email: data.email,
+        shipping_address: shippingAddress,
+        shipping_option_id: selectedShipping.id,
+        payment_method: selectedPaymentMethod,
+        coupon_code: appliedCoupon ? appliedCoupon.code : null,
         items: cart.map((item) => ({
           product_id: item.id,
+          product_name: item.name,
+          variation_label: item.selectedVariations
+            ? item.selectedVariations.map((v) => `${v.name}: ${v.value}`).join(", ")
+            : undefined,
+          unit_price: item.final_price,
           quantity: item.quantity,
-          selected_options: item.selectedVariations
-            ? item.selectedVariations.reduce((acc, curr) => {
-              acc[curr.name] = curr.value;
-              return acc;
-            }, {} as Record<string, string>)
-            : {},
         })),
-        payment_method: selectedPaymentMethod.toUpperCase(), // Backend expects "CASH" or "CARD"
-        total_amount: getTotal(),
-        coupon_code: appliedCoupon ? appliedCoupon.code : null,
-        shipping_option_id: selectedShipping.id,
-      };
+      });
 
-      console.log("Submitting order:", orderPayload);
-
-      const response = await createOrder(orderPayload);
-
-      if (response.success) {
-        // Handle card payment - redirect to payment link
-        if (selectedPaymentMethod === "card" && response.payment_link) {
-          // Redirect to MontyPay checkout
-          window.location.href = response.payment_link;
-        } else if (selectedPaymentMethod === "card" && !response.payment_link) {
-          // Payment link generation failed but order was created
-          clearCart();
-          setOrderMessage(`Order created (ID: ${response.order?.id}). ${response.message || "Please contact support for payment."}`);
-          setOrderSuccess(true);
-        } else {
-          // Cash on delivery - order complete
-          clearCart();
-          setOrderMessage("Your order has been placed successfully! We'll contact you soon.");
-          setOrderSuccess(true);
-        }
+      if (result.ok) {
+        clearCart();
+        setOrderMessage("Your order has been placed successfully! We'll contact you soon.");
+        setOrderSuccess(true);
       } else {
-        alert("Failed to place order. Please try again.");
+        alert(result.message || "Failed to place order. Please try again.");
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Error placing order:", error);
-      const errorMessage =
-        error.details?.error ||
-        Object.values(error.details || {})
-          .flat()
-          .join(", ") ||
-        "An error occurred while placing the order.";
-      alert(`Failed to place order: ${errorMessage}`);
+      alert("An error occurred while placing the order.");
     } finally {
       setIsSubmitting(false);
     }
