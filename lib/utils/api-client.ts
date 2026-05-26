@@ -600,9 +600,13 @@ export async function placeOrder(input: PlaceOrderInput) {
   const shippingFee = Number(shipping?.price ?? 0);
   const total = Math.max(0, subtotal - discount + shippingFee);
 
-  const { data: order, error: orderError } = await db
-    .from("orders")
-    .insert({
+  // Order creation goes through the create_order RPC (SECURITY DEFINER) instead
+  // of a direct .insert().select(). Anon/publishable clients have an INSERT
+  // policy on orders but no SELECT policy, so reading the row back via .select()
+  // fails with RLS error 42501. The RPC inserts order + items atomically under
+  // definer rights and returns just the new id, so no SELECT policy is needed.
+  const { data: orderId, error: orderError } = await db.rpc("create_order", {
+    payload: {
       customer_name: input.customer_name,
       customer_phone: input.customer_phone,
       customer_email: input.customer_email ?? null,
@@ -615,35 +619,25 @@ export async function placeOrder(input: PlaceOrderInput) {
       subtotal,
       total,
       notes: input.notes ?? null,
-    })
-    .select()
-    .single();
-  if (orderError || !order) {
-    console.error("placeOrder insert error:", orderError);
+      items: input.items.map((i) => ({
+        product_id: i.product_id,
+        product_name: i.product_name,
+        variation_label: i.variation_label ?? null,
+        unit_price: i.unit_price,
+        quantity: i.quantity,
+      })),
+    },
+  });
+  if (orderError || !orderId) {
+    console.error("placeOrder create_order error:", orderError);
     return { ok: false, message: "Failed to create order" };
-  }
-
-  const { error: itemsError } = await db.from("order_items").insert(
-    input.items.map((i) => ({
-      order_id: order.id,
-      product_id: i.product_id,
-      product_name: i.product_name,
-      variation_label: i.variation_label ?? null,
-      unit_price: i.unit_price,
-      quantity: i.quantity,
-      subtotal: i.unit_price * i.quantity,
-    }))
-  );
-  if (itemsError) {
-    console.error("placeOrder items error:", itemsError);
-    return { ok: false, message: "Order created but items failed" };
   }
 
   if (input.coupon_code && discount > 0) {
     await db.rpc("increment_coupon_usage", { p_code: input.coupon_code });
   }
 
-  return { ok: true, order };
+  return { ok: true, order: { id: orderId } };
 }
 
 export default apiClient;
